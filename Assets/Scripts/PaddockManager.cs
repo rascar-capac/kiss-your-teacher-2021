@@ -74,6 +74,7 @@ public class PaddockManager : MonoBehaviour
         {
             System.Array colors = System.Enum.GetValues(typeof(LamaColor));
             lama.Color = (LamaColor) colors.GetValue(Random.Range(1, colors.Length));
+            SetRandomPosition(lama);
         }
     }
 

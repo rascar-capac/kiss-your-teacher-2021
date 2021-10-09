@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ActionsManager : MonoBehaviour
 {
@@ -17,6 +18,13 @@ public class ActionsManager : MonoBehaviour
     [SerializeField] private Sprite colorSwitchSprite;
     [SerializeField] private Sprite rerollSprite;
     [SerializeField] private Sprite exchangeSprite;
+    [SerializeField] private Color redColor;
+    [SerializeField] private Color blueColor;
+    [SerializeField] private Color greenColor;
+    [SerializeField] private Color yellowColor;
+    [SerializeField] private TextMeshProUGUI value0;
+    [SerializeField] private TextMeshProUGUI value1;
+    [SerializeField] private TextMeshProUGUI value2;
     // [SerializeField] private float additionChance;
     // [SerializeField] private float substractionChance;
     // [SerializeField] private float transferChance;
@@ -120,6 +128,30 @@ public class ActionsManager : MonoBehaviour
                 action0.sprite = exchangeSprite;
                 break;
         }
+        switch (currentActions[0].Color)
+        {
+            case LamaColor.RED:
+                action0.color = redColor;
+                break;
+            case LamaColor.BLUE:
+                action0.color = blueColor;
+                break;
+            case LamaColor.GREEN:
+                action0.color = greenColor;
+                break;
+            case LamaColor.YELLOW:
+                action0.color = yellowColor;
+                break;
+        }
+        if (currentActions[0].Value != -1)
+        {
+            value0.gameObject.SetActive(true);
+            value0.text = currentActions[0].Value.ToString();
+        }
+        else
+        {
+            value0.gameObject.SetActive(false);
+        }
         switch (currentActions[1].Type)
         {
             case ActionType.ADDITION:
@@ -141,6 +173,30 @@ public class ActionsManager : MonoBehaviour
                 action1.sprite = exchangeSprite;
                 break;
         }
+        switch (currentActions[1].Color)
+        {
+            case LamaColor.RED:
+                action1.color = redColor;
+                break;
+            case LamaColor.BLUE:
+                action1.color = blueColor;
+                break;
+            case LamaColor.GREEN:
+                action1.color = greenColor;
+                break;
+            case LamaColor.YELLOW:
+                action1.color = yellowColor;
+                break;
+        }
+        if (currentActions[1].Value != -1)
+        {
+            value1.gameObject.SetActive(true);
+            value1.text = currentActions[1].Value.ToString();
+        }
+        else
+        {
+            value1.gameObject.SetActive(false);
+        }
         switch (currentActions[2].Type)
         {
             case ActionType.ADDITION:
@@ -161,6 +217,30 @@ public class ActionsManager : MonoBehaviour
             case ActionType.EXCHANGE:
                 action2.sprite = exchangeSprite;
                 break;
+        }
+        switch (currentActions[2].Color)
+        {
+            case LamaColor.RED:
+                action2.color = redColor;
+                break;
+            case LamaColor.BLUE:
+                action2.color = blueColor;
+                break;
+            case LamaColor.GREEN:
+                action2.color = greenColor;
+                break;
+            case LamaColor.YELLOW:
+                action2.color = yellowColor;
+                break;
+        }
+        if (currentActions[2].Value != -1)
+        {
+            value2.gameObject.SetActive(true);
+            value2.text = currentActions[2].Value.ToString();
+        }
+        else
+        {
+            value2.gameObject.SetActive(false);
         }
     }
 }
