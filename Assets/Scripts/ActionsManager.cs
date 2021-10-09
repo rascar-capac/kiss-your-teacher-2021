@@ -12,11 +12,13 @@ public class ActionsManager : MonoBehaviour
     [SerializeField] private Image action2;
     [SerializeField] private Transform spire;
     [SerializeField] private Sprite additionSprite;
+    [SerializeField] private Sprite substractionSprite;
     [SerializeField] private Sprite transferSprite;
     [SerializeField] private Sprite colorSwitchSprite;
     [SerializeField] private Sprite rerollSprite;
     [SerializeField] private Sprite exchangeSprite;
     // [SerializeField] private float additionChance;
+    // [SerializeField] private float substractionChance;
     // [SerializeField] private float transferChance;
     // [SerializeField] private float colorSwitchChance;
     // [SerializeField] private float rerollChance;
@@ -77,6 +79,9 @@ public class ActionsManager : MonoBehaviour
             case ActionType.ADDITION:
                 paddockManager.Add(action.Value, action.Color);
                 break;
+            case ActionType.SUBSTRACTION:
+                paddockManager.Substract(action.Value, action.Color);
+                break;
             case ActionType.TRANSFER:
                 paddockManager.Transfer(action.Value, action.Color);
                 break;
@@ -99,6 +104,9 @@ public class ActionsManager : MonoBehaviour
             case ActionType.ADDITION:
                 action0.sprite = additionSprite;
                 break;
+            case ActionType.SUBSTRACTION:
+                action0.sprite = substractionSprite;
+                break;
             case ActionType.TRANSFER:
                 action0.sprite = transferSprite;
                 break;
@@ -117,6 +125,9 @@ public class ActionsManager : MonoBehaviour
             case ActionType.ADDITION:
                 action1.sprite = additionSprite;
                 break;
+            case ActionType.SUBSTRACTION:
+                action1.sprite = substractionSprite;
+                break;
             case ActionType.TRANSFER:
                 action1.sprite = transferSprite;
                 break;
@@ -134,6 +145,9 @@ public class ActionsManager : MonoBehaviour
         {
             case ActionType.ADDITION:
                 action2.sprite = additionSprite;
+                break;
+            case ActionType.SUBSTRACTION:
+                action2.sprite = substractionSprite;
                 break;
             case ActionType.TRANSFER:
                 action2.sprite = transferSprite;
@@ -154,6 +168,7 @@ public class ActionsManager : MonoBehaviour
 public enum ActionType
 {
     ADDITION,
+    SUBSTRACTION,
     TRANSFER,
     COLOR_SWITCH,
     REROLL,

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class PaddockManager : MonoBehaviour
 {
@@ -26,6 +27,11 @@ public class PaddockManager : MonoBehaviour
         this.lamas.AddRange(lamas);
     }
 
+    public void Substract(int count, LamaColor color = LamaColor.NONE)
+    {
+        RemoveLamas(count, color);
+    }
+
     public void Transfer(int count, LamaColor color = LamaColor.NONE)
     {
         List<LamaState> lamasToTransfer = RemoveLamas(count, color);
@@ -38,20 +44,28 @@ public class PaddockManager : MonoBehaviour
 
     public void SwitchColors()
     {
-        // System.Array colors = System.Enum.GetValues(typeof(LamaColor));
+        List<LamaColor> colors = System.Enum.GetValues(typeof(LamaColor)).Cast<LamaColor>().ToList();
 
-        // for (int i = 0; i < colors.Length; i++)
-        // {
-        //     System.Random random = new System.Random();
-        //     LamaColor color = (LamaColor) colors.GetValue(random.Next(colors.Length));
-        //     foreach (LamaState lama in lamas)
-        //     {
-        //         if (lama.Color == color)
-        //         {
-
-        //         }
-        //     }
-        // }
+        List<LamaState> lamasListToSearch = new List<LamaState>();
+        lamasListToSearch.AddRange(lamas);
+        List<LamaState> lamasInTargetColor = new List<LamaState>();
+        for (int i = 0; i < colors.Count; i++)
+        {
+            LamaColor targetColor = (LamaColor) colors[Random.Range(1, colors.Count)];
+            foreach (LamaState lama in lamasInTargetColor)
+            {
+                lama.Color = targetColor;
+                lamasListToSearch.Remove(lama);
+            }
+            foreach (LamaState lama in lamasListToSearch)
+            {
+                if (lama.Color == targetColor)
+                {
+                    lamasInTargetColor.Add(lama);
+                }
+            }
+            colors.Remove(targetColor);
+        }
     }
 
     public void Reroll()
@@ -78,9 +92,11 @@ public class PaddockManager : MonoBehaviour
             }
             for (int i = 0; i < otherPaddock.lamas.Count; i++)
             {
-                // TODO do it randomly
-                lamas.Add(otherPaddock.lamas[i]);
-                otherPaddock.lamas.RemoveAt(i);
+                if (lamas[i].Color == color)
+                {
+                    lamas.Add(otherPaddock.lamas[i]);
+                    otherPaddock.lamas.RemoveAt(i);
+                }
             }
         }
         else

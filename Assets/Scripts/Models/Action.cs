@@ -19,6 +19,9 @@ public class Action
             case "addition":
                 this.type = ActionType.ADDITION;
                 break;
+            case "substraction":
+                this.type = ActionType.SUBSTRACTION;
+                break;
             case "transfer":
                 this.type = ActionType.TRANSFER;
                 break;
