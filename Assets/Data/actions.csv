@@ -1,5 +1,9 @@
 "type"	"value"	"color"
 "addition"	10	"blue"
-"color switch"	20	"green"
-"exchange"	20	"green"
-"filtering min"	20	
+"addition"	20	
+"exchange"	5	
+"reroll"		
+"transfer"	15	"green"
+"exchange"	10	"red"
+"addition"	5	"red"
+"transfer"	5	

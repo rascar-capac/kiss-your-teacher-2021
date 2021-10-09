@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ActionsManager : MonoBehaviour
 {
-    public static ActionsManager Instance => instance;
     public Action[] CurrentActions => currentActions;
 
     // [SerializeField] private float additionChance;
@@ -13,23 +12,22 @@ public class ActionsManager : MonoBehaviour
     // [SerializeField] private float rerollChance;
     // [SerializeField] private float exchangeChance;
     private Action[] currentActions;
-    private bool mustDrawNewActions;
-    private static ActionsManager instance;
+    [SerializeField] private PaddockManager paddockManager;
 
 
 
     public void SelectAction(int index)
     {
-        currentActions[index] = null;
-        mustDrawNewActions = true;
+        ApplyAction(currentActions[index]);
+        for (int i = 0; i < currentActions.Length; i++)
+        {
+            currentActions[i] = DrawRandomAction();
+        }
+        UIManager.Instance.UpdateActions(currentActions);
+        TasksManager.Instance.CheckTasks();
     }
 
 
-
-    private void Awake()
-    {
-        instance = this;
-    }
 
     private void Start()
     {
@@ -41,24 +39,31 @@ public class ActionsManager : MonoBehaviour
         UIManager.Instance.UpdateActions(currentActions);
     }
 
-    private void Update()
-    {
-        if (!mustDrawNewActions) return;
-
-        for (int i = 0; i < currentActions.Length; i++)
-        {
-            if (currentActions[i] == null)
-            {
-                currentActions[i] = DrawRandomAction();
-            }
-        }
-        mustDrawNewActions = false;
-        UIManager.Instance.UpdateActions(currentActions);
-    }
-
     private Action DrawRandomAction()
     {
         return DataManager.Instance.Actions[Random.Range(0, DataManager.Instance.Actions.Count)];
+    }
+
+    private void ApplyAction(Action action)
+    {
+        switch (action.Type)
+        {
+            case ActionType.ADDITION:
+                paddockManager.Add(action.Value, action.Color);
+                break;
+            case ActionType.TRANSFER:
+                paddockManager.Transfer(action.Value, action.Color);
+                break;
+            case ActionType.COLOR_SWITCH:
+                paddockManager.SwitchColors();
+                break;
+            case ActionType.REROLL:
+                paddockManager.Reroll();
+                break;
+            case ActionType.EXCHANGE:
+                paddockManager.Exchange(action.Color);
+                break;
+        }
     }
 }
 

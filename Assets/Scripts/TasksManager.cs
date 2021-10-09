@@ -13,13 +13,270 @@ public class TasksManager : MonoBehaviour
     private Task[] currentTasks;
     private bool mustDrawNewTasks;
     private static TasksManager instance;
+    [SerializeField] private PaddockManager p1PaddockManager;
+    [SerializeField] private PaddockManager p2PaddockManager;
 
 
 
-    public void CompleteTask(int index)
+    public void CheckTasks()
     {
-        currentTasks[index] = null;
+        for (int i = 0; i < currentTasks.Length; i++)
+        {
+            switch (currentTasks[i].Type)
+            {
+                case TaskType.ABOVE:
+                    int p1Count = 0;
+                    int p2Count = 0;
+                    if (currentTasks[i].Color != LamaColor.NONE)
+                    {
+                        foreach (LamaState lama in p1PaddockManager.Lamas)
+                        {
+                            if (lama.Color == currentTasks[i].Color)
+                            {
+                                p1Count++;
+                            }
+                        }
+                        foreach (LamaState lama in p2PaddockManager.Lamas)
+                        {
+                            if (lama.Color == currentTasks[i].Color)
+                            {
+                                p2Count++;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        p1Count = p1PaddockManager.Lamas.Count;
+                        p2Count = p2PaddockManager.Lamas.Count;
+                    }
+                    if (p1Count > currentTasks[i].Value)
+                    {
+                        CompleteTask(currentTasks[i], p1PaddockManager);
+                    }
+                    else if (p2Count > currentTasks[i].Value)
+                    {
+                        CompleteTask(currentTasks[i], p2PaddockManager);
+                    }
+                    break;
+                case TaskType.BELOW:
+                    p1Count = 0;
+                    p2Count = 0;
+                    if (currentTasks[i].Color != LamaColor.NONE)
+                    {
+                        foreach (LamaState lama in p1PaddockManager.Lamas)
+                        {
+                            if (lama.Color == currentTasks[i].Color)
+                            {
+                                p1Count++;
+                            }
+                        }
+                        foreach (LamaState lama in p2PaddockManager.Lamas)
+                        {
+                            if (lama.Color == currentTasks[i].Color)
+                            {
+                                p2Count++;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        p1Count = p1PaddockManager.Lamas.Count;
+                        p2Count = p2PaddockManager.Lamas.Count;
+                    }
+                    if (p1Count < currentTasks[i].Value)
+                    {
+                        CompleteTask(currentTasks[i], p1PaddockManager);
+                    }
+                    else if (p2Count < currentTasks[i].Value)
+                    {
+                        CompleteTask(currentTasks[i], p2PaddockManager);
+                    }
+                    break;
+                case TaskType.LEAST_COLOR:
+                    int[] colorCounts = new int[4];
+                    LamaColor[] colors = new LamaColor[4];
+                    foreach (LamaState lama in p1PaddockManager.Lamas)
+                    {
+                        switch (lama.Color)
+                        {
+                            case LamaColor.BLUE:
+                                colorCounts[0]++;
+                                colors[0] = LamaColor.BLUE;
+                                break;
+                            case LamaColor.RED:
+                                colorCounts[1]++;
+                                colors[1] = LamaColor.RED;
+                                break;
+                            case LamaColor.GREEN:
+                                colorCounts[2]++;
+                                colors[2] = LamaColor.GREEN;
+                                break;
+                            case LamaColor.YELLOW:
+                                colorCounts[3]++;
+                                colors[3] = LamaColor.YELLOW;
+                                break;
+                        }
+                    }
+                    int minValue = int.MaxValue;
+                    LamaColor minColor = LamaColor.NONE;
+                    for (int j = 0; j < 4; j++)
+                    {
+                        if (colorCounts[j] < minValue)
+                        {
+                            minValue = colorCounts[j];
+                            minColor = colors[j];
+                        }
+                    }
+
+                    if (minColor == currentTasks[i].Color)
+                    {
+                        CompleteTask(currentTasks[i], p1PaddockManager);
+                    }
+
+                    colorCounts = new int[4];
+                    colors = new LamaColor[4];
+                    foreach (LamaState lama in p2PaddockManager.Lamas)
+                    {
+                        switch (lama.Color)
+                        {
+                            case LamaColor.BLUE:
+                                colorCounts[0]++;
+                                colors[0] = LamaColor.BLUE;
+                                break;
+                            case LamaColor.RED:
+                                colorCounts[1]++;
+                                colors[1] = LamaColor.RED;
+                                break;
+                            case LamaColor.GREEN:
+                                colorCounts[2]++;
+                                colors[2] = LamaColor.GREEN;
+                                break;
+                            case LamaColor.YELLOW:
+                                colorCounts[3]++;
+                                colors[3] = LamaColor.YELLOW;
+                                break;
+                        }
+                    }
+                    minValue = int.MaxValue;
+                    minColor = LamaColor.NONE;
+                    for (int j = 0; j < 4; j++)
+                    {
+                        if (colorCounts[j] < minValue)
+                        {
+                            minValue = colorCounts[j];
+                            minColor = colors[j];
+                        }
+                    }
+
+                    if (minColor == currentTasks[i].Color)
+                    {
+                        CompleteTask(currentTasks[i], p2PaddockManager);
+                    }
+                    break;
+                case TaskType.MOST_COLOR:
+                    colorCounts = new int[4];
+                    colors = new LamaColor[4];
+                    foreach (LamaState lama in p1PaddockManager.Lamas)
+                    {
+                        switch (lama.Color)
+                        {
+                            case LamaColor.BLUE:
+                                colorCounts[0]++;
+                                colors[0] = LamaColor.BLUE;
+                                break;
+                            case LamaColor.RED:
+                                colorCounts[1]++;
+                                colors[1] = LamaColor.RED;
+                                break;
+                            case LamaColor.GREEN:
+                                colorCounts[2]++;
+                                colors[2] = LamaColor.GREEN;
+                                break;
+                            case LamaColor.YELLOW:
+                                colorCounts[3]++;
+                                colors[3] = LamaColor.YELLOW;
+                                break;
+                        }
+                    }
+                    int maxValue = 0;
+                    LamaColor maxColor = LamaColor.NONE;
+                    for (int j = 0; j < 4; j++)
+                    {
+                        if (colorCounts[j] > maxValue)
+                        {
+                            maxValue = colorCounts[j];
+                            maxColor = colors[j];
+                        }
+                    }
+
+                    if (maxColor == currentTasks[i].Color)
+                    {
+                        CompleteTask(currentTasks[i], p1PaddockManager);
+                    }
+
+                    colorCounts = new int[4];
+                    colors = new LamaColor[4];
+                    foreach (LamaState lama in p2PaddockManager.Lamas)
+                    {
+                        switch (lama.Color)
+                        {
+                            case LamaColor.BLUE:
+                                colorCounts[0]++;
+                                colors[0] = LamaColor.BLUE;
+                                break;
+                            case LamaColor.RED:
+                                colorCounts[1]++;
+                                colors[1] = LamaColor.RED;
+                                break;
+                            case LamaColor.GREEN:
+                                colorCounts[2]++;
+                                colors[2] = LamaColor.GREEN;
+                                break;
+                            case LamaColor.YELLOW:
+                                colorCounts[3]++;
+                                colors[3] = LamaColor.YELLOW;
+                                break;
+                        }
+                    }
+                    maxValue = 0;
+                    maxColor = LamaColor.NONE;
+                    for (int j = 0; j < 4; j++)
+                    {
+                        if (colorCounts[j] > maxValue)
+                        {
+                            maxValue = colorCounts[j];
+                            maxColor = colors[j];
+                        }
+                    }
+
+                    if (maxColor == currentTasks[i].Color)
+                    {
+                        CompleteTask(currentTasks[i], p2PaddockManager);
+                    }
+                    break;
+            }
+        }
+    }
+
+    public void CompleteTask(Task completedTask, PaddockManager paddockManager)
+    {
+        if (paddockManager == p1PaddockManager)
+        {
+            GameManager.Instance.IncreaseP1Score(completedTask.Gain);
+        }
+        else
+        {
+            GameManager.Instance.IncreaseP2Score(completedTask.Gain);
+        }
         mustDrawNewTasks = true;
+        for (int i = 0; i < currentTasks.Length; i++)
+        {
+            if (currentTasks[i] == completedTask)
+            {
+                currentTasks[i] = DrawRandomTask();
+            }
+        }
+        UIManager.Instance.UpdateTasks(currentTasks);
     }
 
 
@@ -66,6 +323,4 @@ public enum TaskType
     ABOVE,
     LEAST_COLOR,
     MOST_COLOR,
-    LESS_OPPONENT,
-    MORE_OPPONENT,
 }

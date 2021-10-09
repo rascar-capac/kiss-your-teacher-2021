@@ -5,14 +5,16 @@ using UnityEngine;
 public class Task
 {
     public TaskType Type => type;
-    public float Value => value;
+    public int Value => value;
     public LamaColor Color => color;
+    public int Gain => gain;
 
     private TaskType type;
-    private float value;
+    private int value;
     private LamaColor color;
+    private int gain;
 
-    public Task(string type, float value, string color)
+    public Task(string type, int value, string color, int gain)
     {
         switch (type)
         {
@@ -27,12 +29,6 @@ public class Task
                 break;
             case "most color":
                 this.type = TaskType.MOST_COLOR;
-                break;
-            case "less than opponent":
-                this.type = TaskType.LESS_OPPONENT;
-                break;
-            case "more than opponent":
-                this.type = TaskType.MORE_OPPONENT;
                 break;
         }
         this.value = value;
@@ -51,5 +47,6 @@ public class Task
                 this.color = LamaColor.YELLOW;
                 break;
         }
+        this.gain = gain;
     }
 }

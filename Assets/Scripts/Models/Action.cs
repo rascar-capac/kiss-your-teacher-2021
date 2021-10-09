@@ -5,14 +5,14 @@ using UnityEngine;
 public class Action
 {
     public ActionType Type => type;
-    public float Value => value;
+    public int Value => value;
     public LamaColor Color => color;
 
     private ActionType type;
-    private float value;
+    private int value;
     private LamaColor color;
 
-    public Action(string type, float value, string color)
+    public Action(string type, int value, string color)
     {
         switch (type)
         {
@@ -47,19 +47,9 @@ public class Action
             case "yellow":
                 this.color = LamaColor.YELLOW;
                 break;
+            default:
+                this.color = LamaColor.NONE;
+                break;
         }
     }
-}
-
-
-
-
-
-// TODO move to herdManager
-public enum LamaColor
-{
-    RED,
-    YELLOW,
-    GREEN,
-    BLUE
 }

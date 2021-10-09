@@ -52,7 +52,7 @@ public class DataManager : MonoBehaviour
             foreach (var rawEntry in CSVReader.FetchData(actionsData))
             {
                 rawEntry.TryGetValue("type", out string type);
-                float value = GetFloatValue("value", rawEntry);
+                int value = GetIntValue("value", rawEntry);
                 rawEntry.TryGetValue("color", out string color);
 
                 Action action = new Action(
@@ -70,13 +70,15 @@ public class DataManager : MonoBehaviour
             foreach (var rawEntry in CSVReader.FetchData(tasksData))
             {
                 rawEntry.TryGetValue("type", out string type);
-                float value = GetFloatValue("value", rawEntry);
+                int value = GetIntValue("value", rawEntry);
                 rawEntry.TryGetValue("color", out string color);
+                int gain = GetIntValue("gain", rawEntry);
 
                 Task task = new Task(
                     type,
                     value,
-                    color
+                    color,
+                    gain
                 );
                 tasks.Add(task);
             }
