@@ -13,16 +13,24 @@ public class LamaState : MonoBehaviour
             switch (color)
             {
                 case LamaColor.BLUE:
-                    meshRenderer.material = blueMat;
+                    bodyRenderer.material = blueMat;
+                    eyesRenderer.material = blueMat;
+                    earsRenderer.material = blueMat;
                     break;
                 case LamaColor.RED:
-                    meshRenderer.material = redMat;
+                    bodyRenderer.material = redMat;
+                    eyesRenderer.material = redMat;
+                    earsRenderer.material = redMat;
                     break;
                 case LamaColor.GREEN:
-                    meshRenderer.material = greenMat;
+                    bodyRenderer.material = greenMat;
+                    eyesRenderer.material = greenMat;
+                    earsRenderer.material = greenMat;
                     break;
                 case LamaColor.YELLOW:
-                    meshRenderer.material = yellowMat;
+                    bodyRenderer.material = yellowMat;
+                    eyesRenderer.material = yellowMat;
+                    earsRenderer.material = yellowMat;
                     break;
             }
         }
@@ -33,20 +41,15 @@ public class LamaState : MonoBehaviour
     [SerializeField] private Material greenMat;
     [SerializeField] private Material yellowMat;
     private LamaColor color;
-    private MeshRenderer meshRenderer;
+    [SerializeField] private MeshRenderer bodyRenderer;
+    [SerializeField] private MeshRenderer eyesRenderer;
+    [SerializeField] private MeshRenderer earsRenderer;
 
 
 
     public void Init(LamaColor color)
     {
         Color = color;
-    }
-
-
-
-    private void Awake()
-    {
-        meshRenderer = GetComponent<MeshRenderer>();
     }
 }
 
