@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ActionsManager : MonoBehaviour
 {
     public Action[] CurrentActions => currentActions;
 
+    [SerializeField] private TextMeshProUGUI action0;
+    [SerializeField] private TextMeshProUGUI action1;
+    [SerializeField] private TextMeshProUGUI action2;
     // [SerializeField] private float additionChance;
     // [SerializeField] private float transferChance;
     // [SerializeField] private float colorSwitchChance;
@@ -23,7 +27,7 @@ public class ActionsManager : MonoBehaviour
         {
             currentActions[i] = DrawRandomAction();
         }
-        UIManager.Instance.UpdateActions(currentActions);
+        UpdateActions();
         TasksManager.Instance.CheckTasks();
     }
 
@@ -36,7 +40,7 @@ public class ActionsManager : MonoBehaviour
         {
             currentActions[i] = DrawRandomAction();
         }
-        UIManager.Instance.UpdateActions(currentActions);
+        UpdateActions();
     }
 
     private Action DrawRandomAction()
@@ -64,6 +68,52 @@ public class ActionsManager : MonoBehaviour
                 paddockManager.Exchange(action.Color);
                 break;
         }
+    }
+
+    private void UpdateActions()
+    {
+        action0.text = FormatActionButton(currentActions[0]);
+        action1.text = FormatActionButton(currentActions[1]);
+        action2.text = FormatActionButton(currentActions[2]);
+    }
+
+    private string FormatActionButton(Action action)
+    {
+        string text = "";
+        switch (action.Type)
+        {
+            case ActionType.ADDITION:
+                text += "add";
+                break;
+            case ActionType.TRANSFER:
+                text += "transfer";
+                break;
+            case ActionType.COLOR_SWITCH:
+                text += "switch colors";
+                break;
+            case ActionType.EXCHANGE:
+                text += "exchange";
+                break;
+            case ActionType.REROLL:
+                text += "reroll";
+                break;
+        }
+
+        if (action.Value != -1)
+        {
+            text += $" {action.Value}";
+        }
+
+        if (action.Color != LamaColor.NONE)
+        {
+            text += $" {action.Color}";
+        }
+        else
+        {
+            text += " ALL";
+        }
+
+        return text;
     }
 }
 

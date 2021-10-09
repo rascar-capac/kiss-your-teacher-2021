@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class TasksManager : MonoBehaviour
 {
     public static TasksManager Instance => instance;
     public Task[] CurrentTasks => currentTasks;
 
+    [SerializeField] private TextMeshProUGUI task0;
+    [SerializeField] private TextMeshProUGUI task1;
+    [SerializeField] private TextMeshProUGUI task2;
     // [SerializeField] private float countChance;
     // [SerializeField] private float colorChance;
     // [SerializeField] private float opponentChance;
@@ -276,7 +280,7 @@ public class TasksManager : MonoBehaviour
                 currentTasks[i] = DrawRandomTask();
             }
         }
-        UIManager.Instance.UpdateTasks(currentTasks);
+        UpdateTasks();
     }
 
 
@@ -293,7 +297,7 @@ public class TasksManager : MonoBehaviour
         {
             currentTasks[i] = DrawRandomTask();
         }
-        UIManager.Instance.UpdateTasks(currentTasks);
+        UpdateTasks();
     }
 
     private void Update()
@@ -308,12 +312,55 @@ public class TasksManager : MonoBehaviour
             }
         }
         mustDrawNewTasks = false;
-        UIManager.Instance.UpdateTasks(currentTasks);
+        UpdateTasks();
     }
 
     private Task DrawRandomTask()
     {
         return DataManager.Instance.Tasks[Random.Range(0, DataManager.Instance.Tasks.Count)];
+    }
+
+    private void UpdateTasks()
+    {
+        task0.text = FormatTask(currentTasks[0]);
+        task1.text = FormatTask(currentTasks[1]);
+        task2.text = FormatTask(currentTasks[2]);
+    }
+
+    private string FormatTask(Task task)
+    {
+        string text = "";
+        switch (task.Type)
+        {
+            case TaskType.ABOVE:
+                text += "above";
+                break;
+            case TaskType.BELOW:
+                text += "below";
+                break;
+            case TaskType.LEAST_COLOR:
+                text += "the least in";
+                break;
+            case TaskType.MOST_COLOR:
+                text += "the most in";
+                break;
+        }
+
+        if (task.Value != -1)
+        {
+            text += $" {task.Value}";
+        }
+
+        if (task.Color != LamaColor.NONE)
+        {
+            text += $" {task.Color}";
+        }
+        else
+        {
+            text += " ALL";
+        }
+
+        return text;
     }
 }
 
