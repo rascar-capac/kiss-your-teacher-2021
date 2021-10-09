@@ -1,15 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 
 public class ActionsManager : MonoBehaviour
 {
     public Action[] CurrentActions => currentActions;
 
-    [SerializeField] private TextMeshProUGUI action0;
-    [SerializeField] private TextMeshProUGUI action1;
-    [SerializeField] private TextMeshProUGUI action2;
+    [SerializeField] private Image action0;
+    [SerializeField] private Image action1;
+    [SerializeField] private Image action2;
+    [SerializeField] private Transform spire;
+    [SerializeField] private Sprite additionSprite;
+    [SerializeField] private Sprite transferSprite;
+    [SerializeField] private Sprite colorSwitchSprite;
+    [SerializeField] private Sprite rerollSprite;
+    [SerializeField] private Sprite exchangeSprite;
     // [SerializeField] private float additionChance;
     // [SerializeField] private float transferChance;
     // [SerializeField] private float colorSwitchChance;
@@ -19,6 +25,22 @@ public class ActionsManager : MonoBehaviour
     [SerializeField] private PaddockManager paddockManager;
 
 
+
+    public void PressKey()
+    {
+        if (-spire.transform.rotation.z < 120f)
+        {
+            SelectAction(0);
+        }
+        else if (-spire.transform.rotation.z < 240f)
+        {
+            SelectAction(1);
+        }
+        else
+        {
+            SelectAction(2);
+        }
+    }
 
     public void SelectAction(int index)
     {
@@ -72,48 +94,60 @@ public class ActionsManager : MonoBehaviour
 
     private void UpdateActions()
     {
-        action0.text = FormatActionButton(currentActions[0]);
-        action1.text = FormatActionButton(currentActions[1]);
-        action2.text = FormatActionButton(currentActions[2]);
-    }
-
-    private string FormatActionButton(Action action)
-    {
-        string text = "";
-        switch (action.Type)
+        switch (currentActions[0].Type)
         {
             case ActionType.ADDITION:
-                text += "add";
+                action0.sprite = additionSprite;
                 break;
             case ActionType.TRANSFER:
-                text += "transfer";
+                action0.sprite = transferSprite;
                 break;
             case ActionType.COLOR_SWITCH:
-                text += "switch colors";
-                break;
-            case ActionType.EXCHANGE:
-                text += "exchange";
+                action0.sprite = colorSwitchSprite;
                 break;
             case ActionType.REROLL:
-                text += "reroll";
+                action0.sprite = rerollSprite;
+                break;
+            case ActionType.EXCHANGE:
+                action0.sprite = exchangeSprite;
                 break;
         }
-
-        if (action.Value != -1)
+        switch (currentActions[1].Type)
         {
-            text += $" {action.Value}";
+            case ActionType.ADDITION:
+                action1.sprite = additionSprite;
+                break;
+            case ActionType.TRANSFER:
+                action1.sprite = transferSprite;
+                break;
+            case ActionType.COLOR_SWITCH:
+                action1.sprite = colorSwitchSprite;
+                break;
+            case ActionType.REROLL:
+                action1.sprite = rerollSprite;
+                break;
+            case ActionType.EXCHANGE:
+                action1.sprite = exchangeSprite;
+                break;
         }
-
-        if (action.Color != LamaColor.NONE)
+        switch (currentActions[2].Type)
         {
-            text += $" {action.Color}";
+            case ActionType.ADDITION:
+                action2.sprite = additionSprite;
+                break;
+            case ActionType.TRANSFER:
+                action2.sprite = transferSprite;
+                break;
+            case ActionType.COLOR_SWITCH:
+                action2.sprite = colorSwitchSprite;
+                break;
+            case ActionType.REROLL:
+                action2.sprite = rerollSprite;
+                break;
+            case ActionType.EXCHANGE:
+                action2.sprite = exchangeSprite;
+                break;
         }
-        else
-        {
-            text += " ALL";
-        }
-
-        return text;
     }
 }
 
