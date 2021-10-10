@@ -27,6 +27,10 @@ public class ActionsManager : MonoBehaviour
     [SerializeField] private Color yellowColor;
     [SerializeField] private Material randomColorMaterial;
     [SerializeField] private int targetsCount;
+    [SerializeField] private float actionWaitingDelay;
+    [SerializeField] private GameObject disabledEffect;
+    private float actionTimer;
+    private bool canSelectAction;
     // [SerializeField] private float additionChance;
     // [SerializeField] private float substractionChance;
     // [SerializeField] private float transferChance;
@@ -40,6 +44,8 @@ public class ActionsManager : MonoBehaviour
 
     public void PressKey()
     {
+        if (!canSelectAction) return;
+
         if (spire.transform.rotation.eulerAngles.z < 120f)
         {
             SelectAction(2);
@@ -63,9 +69,18 @@ public class ActionsManager : MonoBehaviour
         }
         UpdateActions();
         TasksManager.Instance.CheckTasks();
+        canSelectAction = false;
+        disabledEffect.SetActive(true);
     }
 
 
+
+    private void Awake()
+    {
+        actionTimer = actionWaitingDelay;
+        canSelectAction = true;
+        disabledEffect.SetActive(false);
+    }
 
     private void Start()
     {
@@ -75,6 +90,19 @@ public class ActionsManager : MonoBehaviour
             currentActions[i] = DrawRandomAction();
         }
         UpdateActions();
+    }
+
+    private void Update()
+    {
+        if (canSelectAction) return;
+
+        actionTimer -= Time.deltaTime;
+        if (actionTimer <= 0)
+        {
+            canSelectAction = true;
+            disabledEffect.SetActive(false);
+            actionTimer = actionWaitingDelay;
+        }
     }
 
     private Action DrawRandomAction()
