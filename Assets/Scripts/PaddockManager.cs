@@ -137,6 +137,7 @@ public class PaddockManager : MonoBehaviour
         {
             LamaState lama = Instantiate(lamaPrefab, lamasContainer);
             SetRandomPosition(lama);
+            lama.transform.Rotate(Vector3.up * Random.Range(0f, 180f));
             LamaColor actualColor = color;
             if (actualColor == LamaColor.NONE)
             {
