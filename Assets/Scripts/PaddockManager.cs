@@ -93,7 +93,7 @@ public class PaddockManager : MonoBehaviour
             }
             for (int i = 0; i < otherPaddock.lamas.Count; i++)
             {
-                if (lamas[i].Color == color)
+                if (otherPaddock.lamas[i].Color == color)
                 {
                     lamas.Add(otherPaddock.lamas[i]);
                     otherPaddock.lamas.RemoveAt(i);
@@ -104,8 +104,8 @@ public class PaddockManager : MonoBehaviour
         {
             tempList = lamas;
             lamas = otherPaddock.lamas;
-            otherPaddock.lamas = tempList;
         }
+        otherPaddock.lamas = tempList;
         foreach (LamaState lama in lamas)
         {
             SetRandomPosition(lama);

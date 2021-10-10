@@ -22,9 +22,8 @@ public class ActionsManager : MonoBehaviour
     [SerializeField] private Color blueColor;
     [SerializeField] private Color greenColor;
     [SerializeField] private Color yellowColor;
-    [SerializeField] private TextMeshProUGUI value0;
-    [SerializeField] private TextMeshProUGUI value1;
-    [SerializeField] private TextMeshProUGUI value2;
+    [SerializeField] private Material randomColorMaterial;
+    [SerializeField] private int targetsCount;
     // [SerializeField] private float additionChance;
     // [SerializeField] private float substractionChance;
     // [SerializeField] private float transferChance;
@@ -38,17 +37,17 @@ public class ActionsManager : MonoBehaviour
 
     public void PressKey()
     {
-        if (-spire.transform.rotation.z < 120f)
+        if (spire.transform.rotation.eulerAngles.z < 120f)
         {
-            SelectAction(0);
+            SelectAction(2);
         }
-        else if (-spire.transform.rotation.z < 240f)
+        else if (spire.transform.rotation.eulerAngles.z < 240f)
         {
             SelectAction(1);
         }
         else
         {
-            SelectAction(2);
+            SelectAction(0);
         }
     }
 
@@ -85,13 +84,13 @@ public class ActionsManager : MonoBehaviour
         switch (action.Type)
         {
             case ActionType.ADDITION:
-                paddockManager.Add(action.Value, action.Color);
+                paddockManager.Add(targetsCount, action.Color);
                 break;
             case ActionType.SUBSTRACTION:
-                paddockManager.Substract(action.Value, action.Color);
+                paddockManager.Substract(targetsCount, action.Color);
                 break;
             case ActionType.TRANSFER:
-                paddockManager.Transfer(action.Value, action.Color);
+                paddockManager.Transfer(targetsCount, action.Color);
                 break;
             case ActionType.COLOR_SWITCH:
                 paddockManager.SwitchColors();
@@ -142,15 +141,9 @@ public class ActionsManager : MonoBehaviour
             case LamaColor.YELLOW:
                 action0.color = yellowColor;
                 break;
-        }
-        if (currentActions[0].Value != -1)
-        {
-            value0.gameObject.SetActive(true);
-            value0.text = currentActions[0].Value.ToString();
-        }
-        else
-        {
-            value0.gameObject.SetActive(false);
+            default:
+                action0.color = Color.black;
+                break;
         }
         switch (currentActions[1].Type)
         {
@@ -187,15 +180,9 @@ public class ActionsManager : MonoBehaviour
             case LamaColor.YELLOW:
                 action1.color = yellowColor;
                 break;
-        }
-        if (currentActions[1].Value != -1)
-        {
-            value1.gameObject.SetActive(true);
-            value1.text = currentActions[1].Value.ToString();
-        }
-        else
-        {
-            value1.gameObject.SetActive(false);
+            default:
+                action1.color = Color.black;
+                break;
         }
         switch (currentActions[2].Type)
         {
@@ -232,15 +219,9 @@ public class ActionsManager : MonoBehaviour
             case LamaColor.YELLOW:
                 action2.color = yellowColor;
                 break;
-        }
-        if (currentActions[2].Value != -1)
-        {
-            value2.gameObject.SetActive(true);
-            value2.text = currentActions[2].Value.ToString();
-        }
-        else
-        {
-            value2.gameObject.SetActive(false);
+            default:
+                action2.color = Color.black;
+                break;
         }
     }
 }

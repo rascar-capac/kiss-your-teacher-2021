@@ -52,12 +52,10 @@ public class DataManager : MonoBehaviour
             foreach (var rawEntry in CSVReader.FetchData(actionsData))
             {
                 rawEntry.TryGetValue("type", out string type);
-                int value = GetIntValue("value", rawEntry);
                 rawEntry.TryGetValue("color", out string color);
 
                 Action action = new Action(
                     type,
-                    value,
                     color
                 );
                 actions.Add(action);

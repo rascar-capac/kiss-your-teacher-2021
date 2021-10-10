@@ -172,10 +172,10 @@ MonoBehaviour:
   spire: {fileID: 1929543735}
   additionSprite: {fileID: 21300000, guid: 5af198b47966fc644bfe3d056c612573, type: 3}
   substractionSprite: {fileID: 21300000, guid: dd7f73f71c9929940b8fb32ba7c16b81, type: 3}
-  transferSprite: {fileID: 21300000, guid: 5af198b47966fc644bfe3d056c612573, type: 3}
+  transferSprite: {fileID: 21300000, guid: 228ced8ba71261e449d0b0e8049ce389, type: 3}
   colorSwitchSprite: {fileID: 21300000, guid: dd2a91dcadbb3864b939c0cd67c0e787, type: 3}
   rerollSprite: {fileID: 21300000, guid: c9ca40cddd38a6c47bf079fd294c2ea1, type: 3}
-  exchangeSprite: {fileID: 21300000, guid: 5af198b47966fc644bfe3d056c612573, type: 3}
+  exchangeSprite: {fileID: 21300000, guid: aaf6274fc482bf64986245e34c04d7d4, type: 3}
   redColor: {r: 0.8, g: 0.38039216, b: 0.6901961, a: 1}
   blueColor: {r: 0.3647059, g: 0.4117647, b: 0.69411767, a: 1}
   greenColor: {r: 0.6, g: 0.7882353, b: 0.27058825, a: 1}
@@ -183,6 +183,7 @@ MonoBehaviour:
   value0: {fileID: 345554511}
   value1: {fileID: 750959272}
   value2: {fileID: 1518312007}
+  randomColorMaterial: {fileID: 2100000, guid: 16be4574bc775e84db721271519313be, type: 2}
   paddockManager: {fileID: 534289185}
 --- !u!114 &133134149 stripped
 MonoBehaviour:
@@ -880,6 +881,7 @@ MonoBehaviour:
   value0: {fileID: 1623200041}
   value1: {fileID: 1763692807}
   value2: {fileID: 1705747016}
+  randomColorMaterial: {fileID: 2100000, guid: 16be4574bc775e84db721271519313be, type: 2}
   paddockManager: {fileID: 560229079}
 --- !u!1 &914026003
 GameObject:
