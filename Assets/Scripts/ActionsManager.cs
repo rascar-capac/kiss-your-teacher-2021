@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using RasPacJam.Audio;
 
 public class ActionsManager : MonoBehaviour
 {
@@ -31,12 +32,12 @@ public class ActionsManager : MonoBehaviour
     [SerializeField] private GameObject disabledEffect;
     private float actionTimer;
     private bool canSelectAction;
-    // [SerializeField] private float additionChance;
-    // [SerializeField] private float substractionChance;
-    // [SerializeField] private float transferChance;
-    // [SerializeField] private float colorSwitchChance;
-    // [SerializeField] private float rerollChance;
-    // [SerializeField] private float exchangeChance;
+    [SerializeField] private float additionChance;
+    [SerializeField] private float substractionChance;
+    [SerializeField] private float transferChance;
+    [SerializeField] private float colorSwitchChance;
+    [SerializeField] private float rerollChance;
+    [SerializeField] private float exchangeChance;
     private Action[] currentActions;
     [SerializeField] private PaddockManager paddockManager;
 
@@ -45,6 +46,8 @@ public class ActionsManager : MonoBehaviour
     public void PressKey()
     {
         if (!canSelectAction) return;
+
+        // AudioManager.Instance.Play("Action");
 
         if (spire.transform.rotation.eulerAngles.z < 120f)
         {
@@ -107,7 +110,42 @@ public class ActionsManager : MonoBehaviour
 
     private Action DrawRandomAction()
     {
-        return DataManager.Instance.Actions[Random.Range(0, DataManager.Instance.Actions.Count)];
+        // return DataManager.Instance.Actions[Random.Range(0, DataManager.Instance.Actions.Count)];
+        float randomNumber = Random.value;
+        ActionType actionType;
+        System.Array colors = System.Enum.GetValues(typeof(LamaColor));
+        LamaColor actionColor = (LamaColor) colors.GetValue(Random.Range(0, colors.Length));
+        if (randomNumber <= additionChance)
+        {
+            actionType = ActionType.ADDITION;
+            return new Action(actionType, actionColor);
+        }
+
+        if (randomNumber <= additionChance + substractionChance)
+        {
+            actionType = ActionType.SUBSTRACTION;
+            return new Action(actionType, actionColor);
+        }
+
+        if (randomNumber <= additionChance + substractionChance + transferChance)
+        {
+            actionType = ActionType.TRANSFER;
+            return new Action(actionType, actionColor);
+        }
+
+        if (randomNumber <= additionChance + substractionChance + transferChance + rerollChance)
+        {
+            actionType = ActionType.REROLL;
+            return new Action(actionType, LamaColor.NONE);
+        }
+
+        if (randomNumber <= additionChance + substractionChance + transferChance + rerollChance + exchangeChance)
+        {
+            actionType = ActionType.EXCHANGE;
+        }
+
+        actionType = ActionType.COLOR_SWITCH;
+        return new Action(actionType, LamaColor.NONE);
     }
 
     private void ApplyAction(Action action)

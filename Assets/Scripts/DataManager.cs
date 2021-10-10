@@ -47,20 +47,20 @@ public class DataManager : MonoBehaviour
         instance = this;
 
         actions = new List<Action>();
-        if (actionsData)
-        {
-            foreach (var rawEntry in CSVReader.FetchData(actionsData))
-            {
-                rawEntry.TryGetValue("type", out string type);
-                rawEntry.TryGetValue("color", out string color);
+        // if (actionsData)
+        // {
+        //     foreach (var rawEntry in CSVReader.FetchData(actionsData))
+        //     {
+        //         rawEntry.TryGetValue("type", out string type);
+        //         rawEntry.TryGetValue("color", out string color);
 
-                Action action = new Action(
-                    type,
-                    color
-                );
-                actions.Add(action);
-            }
-        }
+        //         Action action = new Action(
+        //             type,
+        //             color
+        //         );
+        //         actions.Add(action);
+        //     }
+        // }
 
         tasks = new List<Task>();
         if (tasksData)
