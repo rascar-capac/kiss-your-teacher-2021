@@ -25,6 +25,7 @@ public class ActionsManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI value0;
     [SerializeField] private TextMeshProUGUI value1;
     [SerializeField] private TextMeshProUGUI value2;
+    [SerializeField] private Material randomColorMaterial;
     // [SerializeField] private float additionChance;
     // [SerializeField] private float substractionChance;
     // [SerializeField] private float transferChance;
@@ -38,17 +39,17 @@ public class ActionsManager : MonoBehaviour
 
     public void PressKey()
     {
-        if (-spire.transform.rotation.z < 120f)
+        if (spire.transform.rotation.eulerAngles.z < 120f)
         {
-            SelectAction(0);
+            SelectAction(2);
         }
-        else if (-spire.transform.rotation.z < 240f)
+        else if (spire.transform.rotation.eulerAngles.z < 240f)
         {
             SelectAction(1);
         }
         else
         {
-            SelectAction(2);
+            SelectAction(0);
         }
     }
 
@@ -142,6 +143,9 @@ public class ActionsManager : MonoBehaviour
             case LamaColor.YELLOW:
                 action0.color = yellowColor;
                 break;
+            default:
+                action0.color = Color.black;
+                break;
         }
         if (currentActions[0].Value != -1)
         {
@@ -187,6 +191,9 @@ public class ActionsManager : MonoBehaviour
             case LamaColor.YELLOW:
                 action1.color = yellowColor;
                 break;
+            default:
+                action1.color = Color.black;
+                break;
         }
         if (currentActions[1].Value != -1)
         {
@@ -231,6 +238,9 @@ public class ActionsManager : MonoBehaviour
                 break;
             case LamaColor.YELLOW:
                 action2.color = yellowColor;
+                break;
+            default:
+                action2.color = Color.black;
                 break;
         }
         if (currentActions[2].Value != -1)
