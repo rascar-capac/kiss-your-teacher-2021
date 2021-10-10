@@ -11,6 +11,9 @@ public class ActionsManager : MonoBehaviour
     [SerializeField] private Image action0;
     [SerializeField] private Image action1;
     [SerializeField] private Image action2;
+    [SerializeField] private GameObject multicolor0;
+    [SerializeField] private GameObject multicolor1;
+    [SerializeField] private GameObject multicolor2;
     [SerializeField] private Transform spire;
     [SerializeField] private Sprite additionSprite;
     [SerializeField] private Sprite substractionSprite;
@@ -130,19 +133,23 @@ public class ActionsManager : MonoBehaviour
         switch (currentActions[0].Color)
         {
             case LamaColor.RED:
+                multicolor0.SetActive(false);
                 action0.color = redColor;
                 break;
             case LamaColor.BLUE:
+                multicolor0.SetActive(false);
                 action0.color = blueColor;
                 break;
             case LamaColor.GREEN:
+                multicolor0.SetActive(false);
                 action0.color = greenColor;
                 break;
             case LamaColor.YELLOW:
+                multicolor0.SetActive(false);
                 action0.color = yellowColor;
                 break;
             default:
-                action0.color = Color.black;
+                multicolor0.SetActive(true);
                 break;
         }
         switch (currentActions[1].Type)
@@ -169,19 +176,23 @@ public class ActionsManager : MonoBehaviour
         switch (currentActions[1].Color)
         {
             case LamaColor.RED:
+                multicolor1.SetActive(false);
                 action1.color = redColor;
                 break;
             case LamaColor.BLUE:
+                multicolor1.SetActive(false);
                 action1.color = blueColor;
                 break;
             case LamaColor.GREEN:
+                multicolor1.SetActive(false);
                 action1.color = greenColor;
                 break;
             case LamaColor.YELLOW:
+                multicolor1.SetActive(false);
                 action1.color = yellowColor;
                 break;
             default:
-                action1.color = Color.black;
+                multicolor1.SetActive(true);
                 break;
         }
         switch (currentActions[2].Type)
@@ -208,19 +219,23 @@ public class ActionsManager : MonoBehaviour
         switch (currentActions[2].Color)
         {
             case LamaColor.RED:
+                multicolor2.SetActive(false);
                 action2.color = redColor;
                 break;
             case LamaColor.BLUE:
+                multicolor2.SetActive(false);
                 action2.color = blueColor;
                 break;
             case LamaColor.GREEN:
+                multicolor2.SetActive(false);
                 action2.color = greenColor;
                 break;
             case LamaColor.YELLOW:
+                multicolor2.SetActive(false);
                 action2.color = yellowColor;
                 break;
             default:
-                action2.color = Color.black;
+                multicolor2.SetActive(true);
                 break;
         }
     }
