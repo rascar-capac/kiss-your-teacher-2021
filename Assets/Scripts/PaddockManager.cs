@@ -29,7 +29,12 @@ public class PaddockManager : MonoBehaviour
 
     public void Substract(int count, LamaColor color = LamaColor.NONE)
     {
-        RemoveLamas(count, color);
+        List<LamaState> lamasToRemove = RemoveLamas(count, color);
+        foreach (LamaState lama in lamasToRemove)
+        {
+            Destroy(lama.gameObject);
+        }
+
     }
 
     public void Transfer(int count, LamaColor color = LamaColor.NONE)

@@ -1,6 +1,19 @@
 "type"	"value"	"color"	"gain"
 "below"	10	"blue"	10
-"above"	20		20
-"least color"		"red"	20
-"less than opponent"			
-"below"	10		
+"below"	10	"green"	10
+"below"	10	"red"	10
+"below"	10	"yellow"	10
+"below"	10		5
+"above"	10	"blue"	10
+"above"	10	"green"	10
+"above"	10	"red"	10
+"above"	10	"yellow"	10
+"above"	10		5
+"least color"		"red"	10
+"least color"		"blue"	10
+"least color"		"yellow"	10
+"least color"		"green"	10
+"most color"		"yellow"	10
+"most color"		"blue"	10
+"most color"		"red"	10
+"most color"		"green"	10

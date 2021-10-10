@@ -351,6 +351,7 @@ public class TasksManager : MonoBehaviour
     private void UpdateTasks()
     {
         task0.text = FormatTask(currentTasks[0]);
+        // task0.color = currentTasks[0].Color
         task1.text = FormatTask(currentTasks[1]);
     }
 
@@ -360,16 +361,16 @@ public class TasksManager : MonoBehaviour
         switch (task.Type)
         {
             case TaskType.ABOVE:
-                text += "above";
+                text += "more than";
                 break;
             case TaskType.BELOW:
-                text += "below";
+                text += "less than";
                 break;
             case TaskType.LEAST_COLOR:
-                text += "the least in";
+                text += "the least";
                 break;
             case TaskType.MOST_COLOR:
-                text += "the most in";
+                text += "the most";
                 break;
         }
 
@@ -380,11 +381,7 @@ public class TasksManager : MonoBehaviour
 
         if (task.Color != LamaColor.NONE)
         {
-            text += $" {task.Color}";
-        }
-        else
-        {
-            text += " ALL";
+            text += $" in {task.Color}";
         }
 
         return text;
