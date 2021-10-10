@@ -45,9 +45,9 @@ public class ActionsManager : MonoBehaviour
 
     public void PressKey()
     {
-        if (!canSelectAction) return;
+        if (!canSelectAction) {GameManager.Instance.PlayWrongClick(); return;}
 
-        // AudioManager.Instance.Play("Action");
+        GameManager.Instance.PlayClick();
 
         if (spire.transform.rotation.eulerAngles.z < 120f)
         {
@@ -110,7 +110,6 @@ public class ActionsManager : MonoBehaviour
 
     private Action DrawRandomAction()
     {
-        // return DataManager.Instance.Actions[Random.Range(0, DataManager.Instance.Actions.Count)];
         float randomNumber = Random.value;
         ActionType actionType;
         System.Array colors = System.Enum.GetValues(typeof(LamaColor));

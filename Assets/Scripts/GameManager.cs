@@ -19,8 +19,23 @@ public class GameManager : MonoBehaviour
     private int p1Score;
     private int p2Score;
     private static GameManager instance;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip click;
+    [SerializeField] private AudioClip wrongClick;
 
 
+
+    public void PlayClick()
+    {
+        audioSource.PlayOneShot(click);
+    }
+
+    public void PlayWrongClick()
+    {
+        audioSource.PlayOneShot(wrongClick);
+    }
+
+    // public void
 
     public void IncreaseP1Score(int value)
     {
