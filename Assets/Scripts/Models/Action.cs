@@ -5,14 +5,12 @@ using UnityEngine;
 public class Action
 {
     public ActionType Type => type;
-    public int Value => value;
     public LamaColor Color => color;
 
     private ActionType type;
-    private int value;
     private LamaColor color;
 
-    public Action(string type, int value, string color)
+    public Action(string type, string color)
     {
         switch (type)
         {
@@ -35,7 +33,6 @@ public class Action
                 this.type = ActionType.EXCHANGE;
                 break;
         }
-        this.value = value;
         switch (color)
         {
             case "blue":

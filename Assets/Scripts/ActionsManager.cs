@@ -22,10 +22,8 @@ public class ActionsManager : MonoBehaviour
     [SerializeField] private Color blueColor;
     [SerializeField] private Color greenColor;
     [SerializeField] private Color yellowColor;
-    [SerializeField] private TextMeshProUGUI value0;
-    [SerializeField] private TextMeshProUGUI value1;
-    [SerializeField] private TextMeshProUGUI value2;
     [SerializeField] private Material randomColorMaterial;
+    [SerializeField] private int targetsCount;
     // [SerializeField] private float additionChance;
     // [SerializeField] private float substractionChance;
     // [SerializeField] private float transferChance;
@@ -86,13 +84,13 @@ public class ActionsManager : MonoBehaviour
         switch (action.Type)
         {
             case ActionType.ADDITION:
-                paddockManager.Add(action.Value, action.Color);
+                paddockManager.Add(targetsCount, action.Color);
                 break;
             case ActionType.SUBSTRACTION:
-                paddockManager.Substract(action.Value, action.Color);
+                paddockManager.Substract(targetsCount, action.Color);
                 break;
             case ActionType.TRANSFER:
-                paddockManager.Transfer(action.Value, action.Color);
+                paddockManager.Transfer(targetsCount, action.Color);
                 break;
             case ActionType.COLOR_SWITCH:
                 paddockManager.SwitchColors();
@@ -147,15 +145,6 @@ public class ActionsManager : MonoBehaviour
                 action0.color = Color.black;
                 break;
         }
-        if (currentActions[0].Value != -1)
-        {
-            value0.gameObject.SetActive(true);
-            value0.text = currentActions[0].Value.ToString();
-        }
-        else
-        {
-            value0.gameObject.SetActive(false);
-        }
         switch (currentActions[1].Type)
         {
             case ActionType.ADDITION:
@@ -195,15 +184,6 @@ public class ActionsManager : MonoBehaviour
                 action1.color = Color.black;
                 break;
         }
-        if (currentActions[1].Value != -1)
-        {
-            value1.gameObject.SetActive(true);
-            value1.text = currentActions[1].Value.ToString();
-        }
-        else
-        {
-            value1.gameObject.SetActive(false);
-        }
         switch (currentActions[2].Type)
         {
             case ActionType.ADDITION:
@@ -242,15 +222,6 @@ public class ActionsManager : MonoBehaviour
             default:
                 action2.color = Color.black;
                 break;
-        }
-        if (currentActions[2].Value != -1)
-        {
-            value2.gameObject.SetActive(true);
-            value2.text = currentActions[2].Value.ToString();
-        }
-        else
-        {
-            value2.gameObject.SetActive(false);
         }
     }
 }
